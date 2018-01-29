@@ -1,0 +1,10 @@
+server:
+  context-path: /soil
+  port: 8080
+#测试使用${}获取配置文件地址，并且可以映射成实体类去使用
+ws_test:
+    ip: 192.16.6.6
+    port: 8081
+
+#测试在配置文件里面使用配置获取参数
+content: "ip:${ws_test.ip},  port:${ws_test.port}"
