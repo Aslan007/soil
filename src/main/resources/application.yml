@@ -1,12 +1,65 @@
+mybatis:
+  type-aliases-package: com.lx.soil.demos.spring_boot_test.dto
+  #config-locations: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath*:/*Mapper.xml
+  #使用spring-boot 和mybatis集成时，可以使用注解，也可以使用xml的方式具体见：
+  #http://www.ityouknow.com/springboot/2016/11/06/springboot(六)-如何优雅的使用mybatis.html
+
 spring:
   profiles:
     active: dev
   datasource:
-    url: jdbc:mysql:localhost:3306/soil
     driver-class-name: com.mysql.jdbc.Driver
-    data-username: lxtest
+    url: jdbc:mysql://127.0.0.1:3306/soil
+    username: lxtest
     password: admin
-  jpa:
-    hibernate:
-      ddl-auto: create
-    show-sql: true
+     # 使用druid数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+    filters: stat
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+  http:
+     encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
+  thymeleaf:
+    prefix: classpath:/templates/
+    check-template-location: true
+    suffix: .html
+    encoding: UTF-8
+    content-type: text/html
+    mode: HTML5
+    cache: false
+
+#pagehelper分页插件
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+
+server:
+  tomcat:
+    uri-encoding: UTF-8
+
+  #使用jpa
+  #jpa:
+  #  hibernate:
+  #    ddl-auto: update
+      #update 不会删除已有的表数据
+      #create 如果表已经存在，则会删除后重建
+      #none 无操作
+      #validate 验证数据库表与dto不一致会报错
+      #create-drop 什么都不做的时候删除表
+   # show-sql: true
