@@ -8,6 +8,7 @@ import java.util.concurrent.*;
  * @version : v1.0
  * @time : 2018-04-11 9:54
  * @desc : demo：实现获取多个任务的返回结果，根据这些任务的返回结果，来打印不同的check信息
+ *          参考：https://blog.csdn.net/xyqintj/article/details/68948903
  */
 public class DoTaskAfterOtherTasksDoneTest {
     private static ExecutorService executorService = Executors.newCachedThreadPool();
