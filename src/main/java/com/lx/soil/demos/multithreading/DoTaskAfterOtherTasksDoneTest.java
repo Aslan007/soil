@@ -25,7 +25,13 @@ public class DoTaskAfterOtherTasksDoneTest {
             tasks[i] = executorService.submit(new Task());
         }
         /**
+         *
          * 获取任务执行的返回值，并将返回值存到rest布尔数组
+         *
+         * 使用submit 方法来提交任务，它会返回一个future,可以通过这个future来判断任务是否执行成功，
+         * 通过future的get方法来获取返回值，get方法会阻塞住直到任务完成，
+         * 而使用get(long timeout, TimeUnit unit)方法则会阻塞一段时间后立即返回，这时有可能任务没有执行完。
+         *
          */
         for(int i = 0; i < 5; i++){
             try {
@@ -59,6 +65,15 @@ public class DoTaskAfterOtherTasksDoneTest {
 
         /**
          * 关闭线程池
+         *
+         * 可以通过调用线程池的shutdown或shutdownNow方法来关闭线程池，
+         * 原理是遍历线程池中的工作线程，然后逐个调用线程的interrupt方法来中断线程，所以无法响应中断的任务可能永远无法终止。
+         * 两者的区别是：shutdownNow首先将线程池的状态设置成STOP，然后尝试停止所有的正在执行或暂停任务的线程，并返回等待执行任务的列表，
+         * 而shutdown只是将线程池的状态设置成SHUTDOWN状态，然后中断所有没有正在执行任务的线程。
+         * 只要调用了这两个关闭方法的其中一个，isShutdown方法就会返回true。
+         * 当所有的任务都已关闭后,才表示线程池关闭成功，这时调用isTerminaed方法会返回true。
+         * 至于我们应该调用哪一种方法来关闭线程池，应该由提交到线程池的任务特性决定，
+         * 【通常调用shutdown来关闭线程池，如果任务不一定要执行完，则可以调用shutdownNow。】
          */
         executorService.shutdown();
         System.out.println("current task");
