@@ -9,6 +9,7 @@ import java.util.concurrent.*;
  * @time : 2018-04-11 9:54
  * @desc : demo：实现获取多个任务的返回结果，根据这些任务的返回结果，来打印不同的check信息
  *          参考：https://blog.csdn.net/xyqintj/article/details/68948903
+ *               https://blog.csdn.net/qq_25806863/article/details/71214033
  */
 public class DoTaskAfterOtherTasksDoneTest {
     private static ExecutorService executorService = Executors.newCachedThreadPool();
@@ -30,8 +31,8 @@ public class DoTaskAfterOtherTasksDoneTest {
          * 获取任务执行的返回值，并将返回值存到rest布尔数组
          *
          * 使用submit 方法来提交任务，它会返回一个future,可以通过这个future来判断任务是否执行成功，
-         * 通过future的get方法来获取返回值，get方法会阻塞住直到任务完成，
-         * 而使用get(long timeout, TimeUnit unit)方法则会阻塞一段时间后立即返回，这时有可能任务没有执行完。
+         * 通过future的get方法来获取返回值，get方法会阻塞住主线程直到任务完成，
+         * 而使用get(long timeout, TimeUnit unit)方法则会阻塞主线程一段时间后立即返回，这时有可能任务没有执行完，第一个参数是长整型数字，第二个是单位。
          *
          */
         for(int i = 0; i < 5; i++){
@@ -81,7 +82,7 @@ public class DoTaskAfterOtherTasksDoneTest {
     }
 
     /**
-     *  实现了Callable的任务类
+     *  实现了Callable的任务类，可以接受一个泛型。然后返回值也是该类型，此处为boolean
      */
     class Task implements Callable<Boolean> {
 
