@@ -3,7 +3,6 @@ package com.lx.soil.demos.spring_boot_test.controller;
 import com.lx.soil.demos.spring_boot_test.Repository.UserRepository;
 import com.lx.soil.demos.spring_boot_test.dto.Host;
 import com.lx.soil.demos.spring_boot_test.dto.User;
-import com.lx.soil.demos.spring_boot_test.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -33,8 +32,6 @@ public class TestController {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private UserMapper userMapper;
 
     /*@RequestMapping(value = "/hello",method = RequestMethod.GET)*/
     @GetMapping("/hello")
@@ -109,7 +106,8 @@ public class TestController {
 
     @GetMapping(value = "/getUser/{id}")
     public User getByMybaties(@PathVariable(value = "id") Integer id){
-        return userMapper.selectByPrimaryKey(id);
+        //return userMapper.selectByPrimaryKey(id);
+        return null;
     }
 
 

@@ -2,7 +2,6 @@ package com.lx.soil.demos.spring_boot_test.controller;
 
 import com.lx.soil.demos.spring_boot_test.Repository.UserRepository;
 import com.lx.soil.demos.spring_boot_test.dto.User;
-import com.lx.soil.demos.spring_boot_test.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,8 +25,7 @@ public class ThmeleafTestController {
     @Autowired
     private UserRepository repository;
 
-    @Autowired
-    private UserMapper userMapper;
+
 
     @GetMapping(value = "/toList")
     public  String getList(Model model, HttpServletRequest request){
